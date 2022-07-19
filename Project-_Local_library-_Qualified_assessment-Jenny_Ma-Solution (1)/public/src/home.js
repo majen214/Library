@@ -7,9 +7,14 @@ function getTotalAccountsCount(accounts) {
 }
 
 function getBooksBorrowedCount(books) {
+//   let total = 0;
+ //find borrowed books by looping via .forEach
 return books.reduce((previousValue, currentBook) => {
   return previousValue + currentBook.borrows.filter(borrow => borrow.returned === false).length
 }, 0);
+//  books.forEach(book => total+= book.borrows.filter(borrow => borrow.returned === false).length )
+    //add borrowed books to total
+//   return total; 
 
 }
 
@@ -29,6 +34,7 @@ function getMostCommonGenres(books) {
   return result.slice(0, 5);
 }
 
+
 function getMostPopularBooks(books) {
   const booksWithBorrowCount = books.map((book) => {
     return {name: book.title, count: book.borrows.length}
@@ -46,11 +52,12 @@ function getAuthorWithBorrowCount(books, authors) {
     }
   });
 }
+//with helper function
 function getMostPopularAuthors(books, authors) {
   const authorsWithBorrowCount = getAuthorWithBorrowCount(books, authors);
  
   const result = [];
-  authorsWithoutBorrowCount.forEach(obj => {
+  authorsWithBorrowCount.forEach(obj => {
     const existAuthorBook = result.find((r) => r.name === obj.name);
     if (existAuthorBook) {
       existAuthorBook.count += obj.count;
