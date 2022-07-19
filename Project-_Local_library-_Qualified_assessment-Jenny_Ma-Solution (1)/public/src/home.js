@@ -29,7 +29,6 @@ function getMostCommonGenres(books) {
   return result.slice(0, 5);
 }
 
-
 function getMostPopularBooks(books) {
   const booksWithBorrowCount = books.map((book) => {
     return {name: book.title, count: book.borrows.length}
@@ -38,14 +37,18 @@ function getMostPopularBooks(books) {
   return booksWithBorrowCount.slice(0, 5);
 }
 
-function getMostPopularAuthors(books, authors) {
-  const authorsWithoutBorrowCount = books.map(book => {
+function getAuthorWithBorrowCount(books, authors) {
+  return books.map(book => {
     const author = authors.find(author => author.id === book.authorId);
     return {
       name: `${author.name.first} ${author.name.last}`,
       count: book.borrows.length
     }
   });
+}
+function getMostPopularAuthors(books, authors) {
+  const authorsWithBorrowCount = getAuthorWithBorrowCount(books, authors);
+ 
   const result = [];
   authorsWithoutBorrowCount.forEach(obj => {
     const existAuthorBook = result.find((r) => r.name === obj.name);
