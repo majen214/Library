@@ -7,11 +7,10 @@ function getTotalAccountsCount(accounts) {
 }
 
 function getBooksBorrowedCount(books) {
-  let total = 0;
- //find borrowed books by looping via .forEach
- books.forEach(book => total+= book.borrows.filter(borrow => borrow.returned === false).length )
-    //add borrowed books to total
-  return total; 
+return books.reduce((previousValue, currentBook) => {
+  return previousValue + currentBook.borrows.filter(borrow => borrow.returned === false).length
+}, 0);
+
 }
 
 function getMostCommonGenres(books) {
